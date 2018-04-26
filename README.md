@@ -6,14 +6,15 @@ A package for masked texts, so if you want a mask for phone, or zip code or any 
 
 It's very simple, it's a Widget as all the other ones.
 
-    new MaskedTextField(
-              maskedTextFieldController: _textCPFController,
-              mask: "xxx.xxx.xxx-xx",
-              maxLength: 14,
-              keyboardType: TextInputType.number,
-              inputDecoration: new InputDecoration(
-                  hintText: "Digite seu CPF", labelText: "CPF"),
-            ),
+    new MaskedTextField
+    (
+        maskedTextFieldController: _textCPFController,
+        mask: "xxx.xxx.xxx-xx",
+        maxLength: 14,
+        keyboardType: TextInputType.number,
+        inputDecoration: new InputDecoration(
+        hintText: "Digite seu CPF", labelText: "CPF"),
+    );
 
 'x' is the normal char that your text will have.
 
