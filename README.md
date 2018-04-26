@@ -24,7 +24,7 @@ You can also change the escape character you want to use.
 
 If you want to change it, you just need to fill the property `escapeCharacter` with the character you want.
 
-Excample:
+Example:
 
     new MaskedTextField
     (
