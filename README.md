@@ -13,7 +13,7 @@ It's very simple, it's a Widget as all the other ones.
         maxLength: 14,
         keyboardType: TextInputType.number,
         inputDecoration: new InputDecoration(
-        hintText: "Digite seu CPF", labelText: "CPF"),
+        hintText: "Write you Document here", labelText: "CPF"),
     );
 
 'x' is the normal char that your text will have.
@@ -34,7 +34,7 @@ Example:
         maxLength: 14,
         keyboardType: TextInputType.number,
         inputDecoration: new InputDecoration(
-        hintText: "Digite seu CPF", labelText: "CPF"),
+        hintText: "Write you Document here", labelText: "CPF"),
     );
 
 'x' is the default escape character.
