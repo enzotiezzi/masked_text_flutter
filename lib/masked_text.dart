@@ -3,8 +3,10 @@ library masked_text;
 import 'package:flutter/material.dart';
 
 class MaskedTextField extends StatefulWidget {
-  String mask;
   TextEditingController maskedTextFieldController;
+
+  String mask;
+  String escapeCharacter = 'x';
 
   int maxLength = 100;
   TextInputType keyboardType = TextInputType.text;
@@ -12,6 +14,7 @@ class MaskedTextField extends StatefulWidget {
 
   MaskedTextField(
       {this.mask,
+      this.escapeCharacter,
       this.maskedTextFieldController,
       this.maxLength,
       this.keyboardType,
@@ -27,8 +30,10 @@ class MaskedTextField extends StatefulWidget {
 }
 
 class _MaskedTextFieldState extends State<MaskedTextField> {
-  String mask;
   TextEditingController maskedTextFieldController;
+
+  String mask;
+  String escapeCharacter;
 
   int maxLength;
   TextInputType keyboardType;
@@ -36,6 +41,7 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
 
   _MaskedTextFieldState(
       {this.mask,
+      this.escapeCharacter,
       this.maskedTextFieldController,
       this.maxLength,
       this.keyboardType,
@@ -53,7 +59,7 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
       onChanged: (String text) {
         // its deleting text
         if (text.length < lastTextSize) {
-          if (mask[text.length] != 'x')
+          if (mask[text.length] != escapeCharacter)
             maskedTextFieldController.text = text.substring(0, text.length - 1);
         }
 
@@ -61,7 +67,7 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
         if (text.length >= lastTextSize) {
           var position = text.length;
 
-          if (mask[position] != 'x')
+          if (mask[position] != escapeCharacter)
             maskedTextFieldController.text =
                 "${maskedTextFieldController.text}${mask[position]}";
         }

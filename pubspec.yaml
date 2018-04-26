@@ -1,8 +1,8 @@
 name: masked_text
-description: A new flutter package project.
+description: A simple and basic masked text package.
 version: 0.0.1
-author:
-homepage:
+author: Enzo Tiezzi <enzo_tiezzi@hotmail.com>
+homepage: https://github.com/enzotiezzi/masked_text_flutter
 
 dependencies:
   flutter:
@@ -11,6 +11,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+environment:
+  sdk: ">=1.19.0 <2.0.0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
