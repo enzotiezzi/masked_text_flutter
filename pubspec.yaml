@@ -1,6 +1,6 @@
 name: masked_text
 description: A simple and basic masked text package.
-version: 0.0.2
+version: 0.0.4
 author: Enzo Tiezzi <enzo_tiezzi@hotmail.com>
 homepage: https://github.com/enzotiezzi/masked_text_flutter
 

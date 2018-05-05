@@ -37,16 +37,25 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
       onChanged: (String text) {
         // its deleting text
         if (text.length < lastTextSize) {
-          if (widget.mask[text.length] != widget.escapeCharacter)
-            widget.maskedTextFieldController.text = text.substring(0, text.length - 1);
+          if (widget.mask[text.length] != widget.escapeCharacter) {
+            widget.maskedTextFieldController.selection =
+            new TextSelection.fromPosition(new TextPosition(
+                offset: widget.maskedTextFieldController.text.length));
+          }
         } else {
           // its typing
           if (text.length >= lastTextSize) {
             var position = text.length;
 
+            if ((widget.mask[position - 1] != widget.escapeCharacter) &&
+                (text[position - 1] != widget.mask[position - 1])) {
+              widget.maskedTextFieldController.text = _buildText(text);
+            }
+
             if (widget.mask[position] != widget.escapeCharacter)
               widget.maskedTextFieldController.text =
-              "${widget.maskedTextFieldController.text}${widget.mask[position]}";
+              "${widget.maskedTextFieldController.text}${widget
+                  .mask[position]}";
           }
 
           // Android on change resets cursor position(cursor goes to 0)
@@ -64,5 +73,18 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
         lastTextSize = widget.maskedTextFieldController.text.length;
       },
     );
+  }
+
+  String _buildText(String text) {
+    var result = "";
+
+    for (int i = 0; i < text.length - 1; i++) {
+      result += text[i];
+    }
+
+    result += widget.mask[text.length - 1];
+    result += text[text.length - 1];
+
+    return result;
   }
 }
