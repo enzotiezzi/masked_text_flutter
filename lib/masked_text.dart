@@ -11,14 +11,18 @@ class MaskedTextField extends StatefulWidget {
   final int maxLength;
   final TextInputType keyboardType;
   final InputDecoration inputDecoration;
+  final FocusNode focusNode;
 
-  const MaskedTextField(
-      {this.mask,
-        this.escapeCharacter: "x",
-        this.maskedTextFieldController,
-        this.maxLength: 100,
-        this.keyboardType: TextInputType.text,
-        this.inputDecoration: const InputDecoration()});
+  final ValueChanged<String> onChange;
+
+  const MaskedTextField({this.mask,
+    this.escapeCharacter: "x",
+    this.maskedTextFieldController,
+    this.maxLength: 100,
+    this.keyboardType: TextInputType.text,
+    this.inputDecoration: const InputDecoration(),
+    this.focusNode,
+    this.onChange});
 
   @override
   State<StatefulWidget> createState() => new _MaskedTextFieldState();
@@ -34,6 +38,7 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
       maxLength: widget.maxLength,
       keyboardType: widget.keyboardType,
       decoration: widget.inputDecoration,
+      focusNode: widget.focusNode,
       onChanged: (String text) {
         // its deleting text
         if (text.length < lastTextSize) {
@@ -71,6 +76,8 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
 
         // update cursor position
         lastTextSize = widget.maskedTextFieldController.text.length;
+
+        if(widget.onChange != null) widget.onChange(widget.maskedTextFieldController.text);
       },
     );
   }
