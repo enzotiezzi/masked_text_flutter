@@ -1,3 +1,6 @@
+## [0.0.5] - Adding FocusNode and OnChange event.
+
+
 ## [0.0.4] - Android Bug Fixing.
 
 * Bug fixed when trying to backspace after a escapeCharacter in android.
