@@ -1,3 +1,5 @@
+## [0.0.6] - Fixing package for SDK 2.1.0-dev.0.0.
+
 ## [0.0.5] - Adding FocusNode and OnChange event.
 
 
