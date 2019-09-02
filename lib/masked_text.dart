@@ -9,6 +9,7 @@ class MaskedTextField extends StatefulWidget {
   final String escapeCharacter;
 
   final int maxLength;
+  final bool hideCounter;
   final TextInputType keyboardType;
   final InputDecoration inputDecoration;
   final FocusNode focusNode;
@@ -19,6 +20,7 @@ class MaskedTextField extends StatefulWidget {
     this.escapeCharacter: "x",
     this.maskedTextFieldController,
     this.maxLength: 100,
+    this.hideCounter: false,
     this.keyboardType: TextInputType.text,
     this.inputDecoration: const InputDecoration(),
     this.focusNode,
@@ -36,6 +38,7 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
     return new TextField(
       controller: widget.maskedTextFieldController,
       maxLength: widget.maxLength,
+      buildCounter: widget.hideCounter ? _hideCounter : null,
       keyboardType: widget.keyboardType,
       decoration: widget.inputDecoration,
       focusNode: widget.focusNode,
@@ -94,4 +97,7 @@ class _MaskedTextFieldState extends State<MaskedTextField> {
 
     return result;
   }
+
+  Widget _hideCounter(BuildContext context,
+      { int currentLength, int maxLength, bool isFocused }) => null;
 }
