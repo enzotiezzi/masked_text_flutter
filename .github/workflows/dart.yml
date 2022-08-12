@@ -12,15 +12,17 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  publish:
+
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Publish
+        uses: sakebook/actions-flutter-pub-publisher@v1.4.1
         with:
-          flutter-version: '3.0.0'
-          channel: 'stable'
-      - run: flutter pub get
-      - run: flutter pub publish --dry-run
-      - run: flutter pub publish
+          credential: ${{ secrets.CREDENTIAL_JSON }}
+          flutter_package: false
+          skip_test: true
+          dry_run: true

@@ -1,3 +1,5 @@
+## [1.0.1] - changing default escape character to '#' 
+
 ## [1.0.0] - inheriting from textfield and exposing the mask
 
 ## [0.0.6] - Fixing package for SDK 2.1.0-dev.0.0.

@@ -9,7 +9,7 @@ It's very simple, it's a Widget as all the other ones.
     MaskedTextField
     (
         maskedTextFieldController: _textCPFController,
-        mask: "xxx.xxx.xxx-xx",
+        mask: "###.###.###-###",
         maxLength: 14,
         keyboardType: TextInputType.number,
         inputDecoration: new InputDecoration(
