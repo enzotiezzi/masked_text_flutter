@@ -20,7 +20,7 @@ environment:
 
 # The following section is specific to Flutter.
 false_secrets:
-  - credentials.json
+  - /credentials.json
 
 flutter:
 
