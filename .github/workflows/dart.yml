@@ -12,19 +12,14 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  publishing:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.0.5'
-        channel: 'stable'
-    - run: flutter pub get
-    - run: |
-        mkdir -p ~/.pub-cache
-        cat <<EOF > ~/.pub-cache/credentials.json
-        ${{ secrets.CREDENTIAL_JSON }}
-        EOF
-    - run: flutter pub publish -f
+      - name: 'Checkout'
+        uses: actions/checkout@v2 # required!
+
+      - name: '>> Dart package <<'
+        uses: k-paxian/dart-package-publisher@master
+        with:
+          accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
+          refreshToken: ${{ secrets.OAUTH_REFRESH_TOKEN }}
