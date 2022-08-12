@@ -1,97 +1,127 @@
-library masked_text;
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
-class MaskedTextField extends StatefulWidget {
-  final TextEditingController maskedTextFieldController;
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-  final String mask;
-  final String escapeCharacter;
-
-  final int maxLength;
-  final TextInputType keyboardType;
-  final InputDecoration inputDecoration;
-  final FocusNode focusNode;
-
-  final ValueChanged<String> onChange;
-
-  const MaskedTextField({this.mask,
-    this.escapeCharacter: "x",
-    this.maskedTextFieldController,
-    this.maxLength: 100,
-    this.keyboardType: TextInputType.text,
-    this.inputDecoration: const InputDecoration(),
-    this.focusNode,
-    this.onChange});
-
-  @override
-  State<StatefulWidget> createState() => new _MaskedTextFieldState();
-}
-
-class _MaskedTextFieldState extends State<MaskedTextField> {
-  @override
-  Widget build(BuildContext context) {
-    var lastTextSize = 0;
-
-    return new TextField(
-      controller: widget.maskedTextFieldController,
-      maxLength: widget.maxLength,
-      keyboardType: widget.keyboardType,
-      decoration: widget.inputDecoration,
-      focusNode: widget.focusNode,
-      onChanged: (String text) {
-        // its deleting text
-        if (text.length < lastTextSize) {
-          if (widget.mask[text.length] != widget.escapeCharacter) {
-            widget.maskedTextFieldController.selection =
-            new TextSelection.fromPosition(new TextPosition(
-                offset: widget.maskedTextFieldController.text.length));
-          }
-        } else {
-          // its typing
-          if (text.length >= lastTextSize) {
-            var position = text.length;
-
-            if ((widget.mask[position - 1] != widget.escapeCharacter) &&
-                (text[position - 1] != widget.mask[position - 1])) {
-              widget.maskedTextFieldController.text = _buildText(text);
-            }
-
-            if (widget.mask[position] != widget.escapeCharacter)
-              widget.maskedTextFieldController.text =
-              "${widget.maskedTextFieldController.text}${widget
-                  .mask[position]}";
-          }
-
-          // Android on change resets cursor position(cursor goes to 0)
-          // so you have to check if it reset, then put in the end(just on android)
-          // as IOS bugs if you simply put it in the end
-          if (widget.maskedTextFieldController.selection.start <
-              widget.maskedTextFieldController.text.length) {
-            widget.maskedTextFieldController.selection =
-            new TextSelection.fromPosition(new TextPosition(
-                offset: widget.maskedTextFieldController.text.length));
-          }
-        }
-
-        // update cursor position
-        lastTextSize = widget.maskedTextFieldController.text.length;
-
-        if(widget.onChange != null) widget.onChange(widget.maskedTextFieldController.text);
-      },
-    );
-  }
-
-  String _buildText(String text) {
-    var result = "";
-
-    for (int i = 0; i < text.length - 1; i++) {
-      result += text[i];
-    }
-
-    result += widget.mask[text.length - 1];
-    result += text[text.length - 1];
-
-    return result;
-  }
+class MaskedTextField extends TextField {
+  MaskedTextField({
+    Key? key,
+    String? mask,
+    Map<String, RegExp>? maskFilter,
+    TextAlign textAlign = TextAlign.start,
+    bool autocorrect = true,
+    Iterable<String>? autofillHints = const [],
+    bool autofocus = false,
+    InputCounterWidgetBuilder? buildCounter,
+    Clip clipBehavior = Clip.hardEdge,
+    TextEditingController? controller,
+    Color? cursorColor,
+    double? cursorHeight,
+    Radius? cursorRadius,
+    double cursorWidth = 2.0,
+    InputDecoration? decoration,
+    DragStartBehavior dragStartBehavior = DragStartBehavior.start,
+    bool? enabled,
+    bool enableIMEPersonalizedLearning = true,
+    bool? enableInteractiveSelection,
+    bool enableSuggestions = true,
+    bool expands = false,
+    FocusNode? focusNode,
+    List<TextInputFormatter>? inputFormatters,
+    Brightness? keyboardAppearance,
+    TextInputType? keyboardType,
+    int? maxLength,
+    MaxLengthEnforcement? maxLengthEnforcement,
+    int? maxLines,
+    int? minLines,
+    MouseCursor? mouseCursor,
+    bool obscureText = false,
+    String obscuringCharacter = "*",
+    AppPrivateCommandCallback? onAppPrivateCommand,
+    ValueChanged<String>? onChanged,
+    VoidCallback? onEditingComplete,
+    ValueChanged<String>? onSubmitted,
+    GestureTapCallback? onTap,
+    bool readOnly = false,
+    String? restorationId,
+    bool scribbleEnabled = true,
+    ScrollController? scrollController,
+    EdgeInsets scrollPadding = const EdgeInsets.all(20),
+    ScrollPhysics? scrollPhysics,
+    TextSelectionControls? selectionControls,
+    ui.BoxHeightStyle selectionHeightStyle = ui.BoxHeightStyle.tight,
+    ui.BoxWidthStyle selectionWidthStyle = ui.BoxWidthStyle.tight,
+    bool? showCursor,
+    SmartDashesType? smartDashesType,
+    SmartQuotesType? smartQuotesType,
+    StrutStyle? strutStyle,
+    TextStyle? style,
+    TextAlignVertical? textAlignVertical,
+    TextCapitalization textCapitalization = TextCapitalization.none,
+    TextDirection? textDirection,
+    TextInputAction? textInputAction,
+    ToolbarOptions? toolbarOptions,
+  }) : super(
+            key: key,
+            textAlign: textAlign,
+            autocorrect: autocorrect,
+            autofillHints: autofillHints,
+            autofocus: autofocus,
+            buildCounter: buildCounter,
+            clipBehavior: clipBehavior,
+            controller: controller,
+            cursorColor: cursorColor,
+            cursorHeight: cursorHeight,
+            cursorRadius: cursorRadius,
+            cursorWidth: cursorWidth,
+            decoration: decoration,
+            dragStartBehavior: dragStartBehavior,
+            enabled: enabled,
+            enableIMEPersonalizedLearning: enableIMEPersonalizedLearning,
+            enableInteractiveSelection: enableInteractiveSelection,
+            enableSuggestions: enableSuggestions,
+            expands: expands,
+            focusNode: focusNode,
+            inputFormatters: [
+              ...?inputFormatters,
+              MaskTextInputFormatter(
+                mask: mask,
+                filter: maskFilter
+              )
+            ],
+            keyboardAppearance: keyboardAppearance,
+            keyboardType: keyboardType,
+            maxLength: maxLength,
+            maxLengthEnforcement: maxLengthEnforcement,
+            maxLines: maxLines,
+            minLines: minLines,
+            mouseCursor: mouseCursor,
+            obscureText: obscureText,
+            obscuringCharacter: obscuringCharacter,
+            onAppPrivateCommand: onAppPrivateCommand,
+            onChanged: onChanged,
+            onEditingComplete: onEditingComplete,
+            onSubmitted: onSubmitted,
+            onTap: onTap,
+            readOnly: readOnly,
+            restorationId: restorationId,
+            scribbleEnabled: scribbleEnabled,
+            scrollController: scrollController,
+            scrollPadding: scrollPadding,
+            scrollPhysics: scrollPhysics,
+            selectionControls: selectionControls,
+            selectionHeightStyle: selectionHeightStyle,
+            selectionWidthStyle: selectionWidthStyle,
+            showCursor: showCursor,
+            smartDashesType: smartDashesType,
+            smartQuotesType: smartQuotesType,
+            strutStyle: strutStyle,
+            style: style,
+            textAlignVertical: textAlignVertical,
+            textCapitalization: textCapitalization,
+            textDirection: textDirection,
+            textInputAction: textInputAction,
+            toolbarOptions: toolbarOptions);
 }

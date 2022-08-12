@@ -7,13 +7,14 @@ homepage: https://github.com/enzotiezzi/masked_text_flutter
 dependencies:
   flutter:
     sdk: flutter
+  mask_text_input_formatter: ^2.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 environment:
-  sdk: '>=2.0.0-dev.49.0 <3.0.0'
+  sdk: '>=2.12.0 <=3.0.0'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
