@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Dart
+name: Flutter
 
 on:
   push:
@@ -23,3 +23,4 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: flutter pub publish --dry-run
+      - run: flutter pub publish
