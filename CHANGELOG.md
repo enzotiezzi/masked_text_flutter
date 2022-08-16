@@ -1,3 +1,5 @@
+## [1.0.2] - Adding simple test to check if the mask is working
+
 ## [1.0.1] - changing default escape character to '#' 
 
 ## [1.0.0] - inheriting from textfield and exposing the mask
