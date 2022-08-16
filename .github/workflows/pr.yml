@@ -11,9 +11,13 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v3
       - name: 'Download flutter'
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.0.0'
-      run: flutter --version
-     - name: 'Flutter pub get'
-      run: 'flutter pub get'
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.0'
+        run: flutter --version
+      - name: 'Pub Get'
+        run: 'flutter pub get'
+      - name: 'Build'
+        run: 'flutter build'
+      - name: 'Test'
+        run: 'flutter test'
