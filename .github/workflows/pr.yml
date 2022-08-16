@@ -18,7 +18,7 @@ jobs:
         with:
           flutter-version: '3.0.0'
       - run: flutter --version
-  build:
+  get:
     runs-on: ubuntu-latest
     steps:
       - name: 'Flutter pub get'
