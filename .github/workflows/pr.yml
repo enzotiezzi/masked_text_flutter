@@ -1,0 +1,22 @@
+name: PR Build and Test
+
+on:
+  pull_request:
+    branches:
+      - *
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+      - uses: actions/checkout@v3
+      - name: 'Flutter download'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.0'
+      - name: 'Flutter pub get'
+      - run: 'flutter pub get'
+      - name: 'Flutter build'
+      - run: 'flutter build'
+      - name: 'Flutter test'
+      - run: 'flutter test'
