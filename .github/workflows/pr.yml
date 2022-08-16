@@ -5,18 +5,21 @@ on:
     branches:
       - '*'
 jobs:
-  build:
+  checkout:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
       - uses: actions/checkout@v3
-      - name: 'Flutter download'
+  download_flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Download flutter'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.0.0'
+      - run: flutter --version
+  build:
+    runs-on: ubuntu-latest
+    steps:
       - name: 'Flutter pub get'
       - run: 'flutter pub get'
-      - name: 'Flutter build'
-      - run: 'flutter build'
-      - name: 'Flutter test'
-      - run: 'flutter test'
