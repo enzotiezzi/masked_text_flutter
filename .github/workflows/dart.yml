@@ -10,15 +10,32 @@ on:
     branches:
       - master
 jobs:
-  publishing:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v2 # required!
+        uses: actions/checkout@v3
+      - name: 'Download flutter'
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.0'
+      - name: 'Pub Get'
+        run: 'flutter pub get'
+      - name: 'Build'
+        run: 'flutter build'
+      - name: 'Test'
+        run: 'flutter test'
 
-      - name: '>> Dart package <<'
+  publishing:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+      - name: 'Dart package'
         uses: k-paxian/dart-package-publisher@master
         with:
           accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
           refreshToken: ${{ secrets.OAUTH_REFRESH_TOKEN }}
-          skipTests: false
+          skipTests: true
