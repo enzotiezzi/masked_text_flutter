@@ -18,5 +18,7 @@ jobs:
         run: 'flutter pub get'
       - name: 'Build'
         run: 'flutter build'
+      - name: 'Analyze'
+        run: 'flutter analyze'
       - name: 'Test'
         run: 'flutter test'
