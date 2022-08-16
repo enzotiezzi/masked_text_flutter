@@ -11,6 +11,8 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v3
   download_flutter:
+    needs:
+      - checkout
     runs-on: ubuntu-latest
     steps:
       - name: 'Download flutter'
@@ -19,6 +21,8 @@ jobs:
           flutter-version: '3.0.0'
       - run: flutter --version
   get:
+    needs:
+      - download_flutter
     runs-on: ubuntu-latest
     steps:
       - name: 'Flutter pub get'
