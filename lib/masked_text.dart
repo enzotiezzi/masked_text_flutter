@@ -1,13 +1,12 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class MaskedTextField extends TextField {
+class MaskedTextField extends TextFormField {
   MaskedTextField({
     Key? key,
+    String? initialValue,
     String? mask,
     Map<String, RegExp>? maskFilter,
     TextAlign textAlign = TextAlign.start,
@@ -15,14 +14,12 @@ class MaskedTextField extends TextField {
     Iterable<String>? autofillHints = const [],
     bool autofocus = false,
     InputCounterWidgetBuilder? buildCounter,
-    Clip clipBehavior = Clip.hardEdge,
     TextEditingController? controller,
     Color? cursorColor,
     double? cursorHeight,
     Radius? cursorRadius,
     double cursorWidth = 2.0,
     InputDecoration? decoration,
-    DragStartBehavior dragStartBehavior = DragStartBehavior.start,
     bool? enabled,
     bool enableIMEPersonalizedLearning = true,
     bool? enableInteractiveSelection,
@@ -39,20 +36,15 @@ class MaskedTextField extends TextField {
     MouseCursor? mouseCursor,
     bool obscureText = false,
     String obscuringCharacter = "*",
-    AppPrivateCommandCallback? onAppPrivateCommand,
     ValueChanged<String>? onChanged,
     VoidCallback? onEditingComplete,
-    ValueChanged<String>? onSubmitted,
     GestureTapCallback? onTap,
     bool readOnly = false,
     String? restorationId,
-    bool scribbleEnabled = true,
     ScrollController? scrollController,
     EdgeInsets scrollPadding = const EdgeInsets.all(20),
     ScrollPhysics? scrollPhysics,
     TextSelectionControls? selectionControls,
-    ui.BoxHeightStyle selectionHeightStyle = ui.BoxHeightStyle.tight,
-    ui.BoxWidthStyle selectionWidthStyle = ui.BoxWidthStyle.tight,
     bool? showCursor,
     SmartDashesType? smartDashesType,
     SmartQuotesType? smartQuotesType,
@@ -63,6 +55,10 @@ class MaskedTextField extends TextField {
     TextDirection? textDirection,
     TextInputAction? textInputAction,
     ToolbarOptions? toolbarOptions,
+    AutovalidateMode? autovalidateMode,
+    ValueChanged<String>? onFieldSubmitted,
+    FormFieldSetter<String>? onSaved,
+    FormFieldValidator<String>? validator,
   }) : super(
             key: key,
             textAlign: textAlign,
@@ -70,14 +66,12 @@ class MaskedTextField extends TextField {
             autofillHints: autofillHints,
             autofocus: autofocus,
             buildCounter: buildCounter,
-            clipBehavior: clipBehavior,
             controller: controller,
             cursorColor: cursorColor,
             cursorHeight: cursorHeight,
             cursorRadius: cursorRadius,
             cursorWidth: cursorWidth,
             decoration: decoration,
-            dragStartBehavior: dragStartBehavior,
             enabled: enabled,
             enableIMEPersonalizedLearning: enableIMEPersonalizedLearning,
             enableInteractiveSelection: enableInteractiveSelection,
@@ -100,20 +94,15 @@ class MaskedTextField extends TextField {
             mouseCursor: mouseCursor,
             obscureText: obscureText,
             obscuringCharacter: obscuringCharacter,
-            onAppPrivateCommand: onAppPrivateCommand,
             onChanged: onChanged,
             onEditingComplete: onEditingComplete,
-            onSubmitted: onSubmitted,
             onTap: onTap,
             readOnly: readOnly,
             restorationId: restorationId,
-            scribbleEnabled: scribbleEnabled,
             scrollController: scrollController,
             scrollPadding: scrollPadding,
             scrollPhysics: scrollPhysics,
             selectionControls: selectionControls,
-            selectionHeightStyle: selectionHeightStyle,
-            selectionWidthStyle: selectionWidthStyle,
             showCursor: showCursor,
             smartDashesType: smartDashesType,
             smartQuotesType: smartQuotesType,
@@ -123,5 +112,11 @@ class MaskedTextField extends TextField {
             textCapitalization: textCapitalization,
             textDirection: textDirection,
             textInputAction: textInputAction,
-            toolbarOptions: toolbarOptions);
+            toolbarOptions: toolbarOptions,
+            autovalidateMode: autovalidateMode,
+            initialValue: initialValue,
+            onFieldSubmitted: onFieldSubmitted,
+            onSaved: onSaved,
+            validator: validator
+  );
 }

@@ -1,3 +1,5 @@
+## [1.1.2] - Extending from TextFormField and adding mission properties
+
 ## [1.0.2] - Adding simple test to check if the mask is working
 
 ## [1.0.1] - changing default escape character to '#' 
